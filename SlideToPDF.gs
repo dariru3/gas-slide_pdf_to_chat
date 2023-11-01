@@ -1,4 +1,4 @@
-function saveSlideToPDF() {
+function saveSlideToPDF_() {
   // Get date and set filename
   const today = new Date();
   const todayDate = today.toLocaleDateString('ja-JP', { year: '2-digit', month: '2-digit', day: '2-digit', timeZone: 'Asia/Tokyo' }).replace(/\//g, '');
