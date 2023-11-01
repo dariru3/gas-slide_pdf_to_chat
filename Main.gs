@@ -70,6 +70,8 @@ function sendToChat_() {
 
   // Create the PDF and get its Google Drive URL
   const pdfFile = saveSlideToPDF();
+  const pdfFileId = pdfFile.getId();
+  DriveApp.getFileById(pdfFileId).setSharing(DriveApp.Access.DOMAIN_WITH_LINK, DriveApp.Permission.VIEW);
   const pdfUrl = pdfFile.getUrl();
 
   const fullMessage = message + "\n\n" + pdfUrl; // Combine message with PDF URL
