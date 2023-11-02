@@ -1,12 +1,13 @@
 /**
  * Creates a custom menu in the Google Sheet UI with an option to manually trigger the 'dailyCheckAndSend' function.
- */
+ * 
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
   ui.createMenu('Test Menu')
     .addItem('Send Message+PDF', 'weeklyCheckAndSend')
     .addToUi();
 }
+ */
 
 /**
  * Checks if the current date exists in the specified list of dates.
