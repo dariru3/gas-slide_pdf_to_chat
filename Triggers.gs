@@ -7,9 +7,8 @@
  */
 function checkDayOfWeek() {
   const monday = 1;
-  const tuesday = 4; // 2;
-  const triggerHour = 15; // 11;
-  const triggerMinute = 15; // TEST
+  const tuesday = 2;
+  const triggerHour = 11;
   const date = new Date(); 
   const dayOfWeek = date.getDay();
   
@@ -18,8 +17,6 @@ function checkDayOfWeek() {
     ScriptApp.newTrigger('setSpecificTime_')
       .timeBased()
       .atHour(triggerHour)
-      .nearMinute(triggerMinute)
-      .everyDays(1) // TEST
       .create();
   } 
 }
