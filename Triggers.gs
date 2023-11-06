@@ -9,14 +9,18 @@ function checkDayOfWeek() {
   const monday = 1;
   const tuesday = 2;
   const triggerHour = 11;
+  const triggerMinute = 0;
   const date = new Date(); 
+  console.log(date)
   const dayOfWeek = date.getDay();
   
   if (dayOfWeek == monday || dayOfWeek == tuesday) { 
     deleteExistingTriggers_('setSpecificTime_');
+    date.setHours(triggerHour, triggerMinute, 0, 0);
+    console.log(date)
     ScriptApp.newTrigger('setSpecificTime_')
       .timeBased()
-      .atHour(triggerHour)
+      .at(date)
       .create();
   } 
 }
