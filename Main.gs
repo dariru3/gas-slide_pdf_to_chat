@@ -1,6 +1,6 @@
 /**
- * Creates a custom menu in the Google Sheet UI with an option to manually trigger the 'dailyCheckAndSend' function.
- * 
+ * Creates a custom menu in the Google Sheet UI 
+ * with an option to manually trigger the 'dailyCheckAndSend' function.
  */
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
@@ -21,7 +21,7 @@ function isTodayInDateList_() {
   
   // Get list of dates
   const lastRow = sheet.getLastRow(); // Get the last row with content
-  const dateListRaw = sheet.getRange(1, 1, lastRow).getValues().flat(); // Adjust the range based on lastRow
+  const dateListRaw = sheet.getRange(1, 1, lastRow).getValues().flat();
   const dateList = dateListRaw.map(date => Utilities.formatDate(date, 'Asia/Tokyo', 'yyyy/MM/dd'));
   console.log(`date list: ${dateList}`);
 
