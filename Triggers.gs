@@ -1,15 +1,22 @@
 // Note: Set manual trigger for checkDayofWeek in Apps Script dashboard: Mondays and Tuesdays at 9 AM
 
+/**
+ * Checks if the "okay to send" status in a specific cell is set to true.
+ * This is used as a "kill switch" to control whether the sending process should proceed.
+ * @return {boolean} - Returns true if the cell value is boolean true, indicating it's okay to send.
+ */
 function isOkayToSend() {
+  // Connect to spreadsheet
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(CONFIG.mainSheet);
   const okayCell = CONFIG.okayCell;
-  
   const okayToSend = sheet.getRange(okayCell).getValue();
   console.log(okayToSend, typeof(okayToSend))
 
-  return okayToSend === true
+  // Compare the cell value to the boolean true and return the result
+  return okayToSend === true;
 }
+
 
 /**
  * This function checks if the current day is a Monday or Tuesday.

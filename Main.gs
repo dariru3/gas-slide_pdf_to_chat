@@ -11,7 +11,8 @@ function onOpen() {
 
 /**
  * Triggered weekly (Monday and Tuesday in case of Monday holiday). 
- * If today's date is in the list, sends the message to chat.
+ * If today's date is in the list and okay checkbox is checked,
+ * sends the message to chat.
  */
 function weeklyCheckAndSend() {
   if (isTodayInDateList_() && isOkayToSend()) {
