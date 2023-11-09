@@ -15,7 +15,7 @@ function onOpen() {
  * sends the message to chat.
  */
 function weeklyCheckAndSend() {
-  if (isTodayInDateList_() && isOkayToSend()) {
+  if (isTodayInDateList_() && isOkayToSend_()) {
     sendToChat_();
   }
 }
@@ -26,7 +26,7 @@ function weeklyCheckAndSend() {
  */
 function isTodayInDateList_() {
   // Connect to sheet
-  const sheetName = CONFIG.dateListSheet;
+  const sheetName = CONFIG.mainSheet;
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(sheetName);
   
@@ -54,7 +54,7 @@ function isTodayInDateList_() {
  */
 function getMessageFromSheet_() {
   // Connect to sheet
-  const sheetName = CONFIG.chatMessageSheet;
+  const sheetName = CONFIG.mainSheet;
   const messageCell = CONFIG.chatMessageCell;
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(sheetName);

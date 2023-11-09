@@ -5,7 +5,7 @@
  * This is used as a "kill switch" to control whether the sending process should proceed.
  * @return {boolean} - Returns true if the cell value is boolean true, indicating it's okay to send.
  */
-function isOkayToSend() {
+function isOkayToSend_() {
   // Connect to spreadsheet
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(CONFIG.mainSheet);
