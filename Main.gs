@@ -20,8 +20,9 @@ function isTodayInDateList_() {
   const sheet = ss.getSheetByName(sheetName);
   
   // Get list of dates
+  const [startRow, startCol] = [CONFIG.dateListRowStart, CONFIG.dateListColStart];
   const lastRow = sheet.getLastRow(); // Get the last row with content
-  const dateListRaw = sheet.getRange(1, 1, lastRow).getValues().flat();
+  const dateListRaw = sheet.getRange(startRow, startCol, lastRow).getValues().flat();
   const dateList = dateListRaw.map(date => Utilities.formatDate(date, 'Asia/Tokyo', 'yyyy/MM/dd'));
   console.log(`date list: ${dateList}`);
 
@@ -53,7 +54,7 @@ function weeklyCheckAndSend() {
 function getMessageFromSheet_() {
   // Connect to sheet
   const sheetName = CONFIG.chatMessageSheet;
-  const messageCell = 'A1';
+  const messageCell = CONFIG.chatMessageCell;
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(sheetName);
 
