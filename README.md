@@ -3,7 +3,8 @@ Save Google Slide as PDF, send to Google Chat with message
 
 
 # Google Sheets Custom Chat Message Script
-![calendar icon](https://github.com/dariru3/gas-slide_pdf_to_chat/assets/107824734/4e580a53-014e-490f-bf98-6ecc9425398e)
+![DALL·E 2023-11-09 20 28 37 - A digital illustration of a flat icon-style sales robot on fire  The robot is characterized by a business-like appearance, with a tie and a small brie](https://github.com/dariru3/gas-slide_pdf_to_chat/assets/107824734/c192afb9-f32c-4085-91ac-bd951c185897)
+
 
 This script is designed to automate the process of sending messages to a Google Chat room based on specific dates listed in a Google Sheet. The script checks for today's date, and if it matches any date listed in the Sheet, a pre-defined message from the Sheet along with a PDF is sent to the specified Google Chat room.
 
