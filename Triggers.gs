@@ -10,11 +10,16 @@ function isOkayToSend() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(CONFIG.mainSheet);
   const okayCell = CONFIG.okayCell;
-  const okayToSend = sheet.getRange(okayCell).getValue();
+  const okayRange = sheet.getRange(okayCell); 
+  const okayToSend = okayRange.getValue();
   console.log(okayToSend, typeof(okayToSend))
 
-  // Compare the cell value to the boolean true and return the result
-  return okayToSend === true;
+  // Uncheck if true
+  if(okayToSend === true){
+    okayRange.uncheck()
+  }
+
+  return okayToSend
 }
 
 
