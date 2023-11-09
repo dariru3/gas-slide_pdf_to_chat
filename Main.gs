@@ -10,6 +10,16 @@ function onOpen() {
 }
 
 /**
+ * Triggered weekly (Monday and Tuesday in case of Monday holiday). 
+ * If today's date is in the list, sends the message to chat.
+ */
+function weeklyCheckAndSend() {
+  if (isTodayInDateList_() && isOkayToSend()) {
+    sendToChat_();
+  }
+}
+
+/**
  * Checks if the current date exists in the specified list of dates.
  * @return {boolean} - Returns true if today's date is in the list, otherwise false.
  */
@@ -35,16 +45,6 @@ function isTodayInDateList_() {
   const isInList = dateList.includes(formattedToday);
   
   return isInList;
-}
-
-/**
- * Triggered weekly (Monday and Tuesday in case of Monday holiday). 
- * If today's date is in the list, sends the message to chat.
- */
-function weeklyCheckAndSend() {
-  if (isTodayInDateList_()) {
-    sendToChat_();
-  }
 }
 
 /**

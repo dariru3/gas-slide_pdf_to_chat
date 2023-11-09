@@ -1,5 +1,16 @@
 // Note: Set manual trigger for checkDayofWeek in Apps Script dashboard: Mondays and Tuesdays at 9 AM
 
+function isOkayToSend() {
+  const ss = SpreadsheetApp.getActiveSpreadsheet();
+  const sheet = ss.getSheetByName(CONFIG.mainSheet);
+  const okayCell = CONFIG.okayCell;
+  
+  const okayToSend = sheet.getRange(okayCell).getValue();
+  console.log(okayToSend, typeof(okayToSend))
+
+  return okayToSend === true
+}
+
 /**
  * This function checks if the current day is a Monday or Tuesday.
  * If it's either of those days, it creates a trigger to run the 
