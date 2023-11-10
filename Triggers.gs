@@ -9,14 +9,14 @@ function isOkayToSend_() {
   // Connect to spreadsheet
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet = ss.getSheetByName(CONFIG.mainSheet);
-  const okayCell = CONFIG.okayCell;
-  const okayRange = sheet.getRange(okayCell); 
-  const okayToSend = okayRange.getValue();
+  const checkbox = CONFIG.checkboxCell;
+  const checkboxRange = sheet.getRange(checkbox); 
+  const okayToSend = checkboxRange.getValue();
   console.log(okayToSend, typeof(okayToSend))
 
-  // Uncheck if true
+  // Uncheck after sending
   if(okayToSend === true){
-    okayRange.uncheck()
+    checkboxRange.uncheck()
   }
 
   return okayToSend
@@ -50,7 +50,7 @@ function checkDayOfWeek() {
 
 /**
  * This function sets a trigger for the weeklyCheckAndSend function 
- * to run exactly at 16:00 (4:00 PM) on the current day.
+ * to run exactly at 16:00 on the current day.
  */
 function setSpecificTime_() {
   const triggerHour = 16;
