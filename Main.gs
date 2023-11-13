@@ -5,7 +5,7 @@
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
   ui.createMenu('Manual Send')
-    .addItem('Send Message+PDF', 'weeklyCheckAndSend')
+    .addItem('Send Message+PDF', 'sendToChat')
     .addToUi();
 }
 
@@ -16,7 +16,7 @@ function onOpen() {
  */
 function weeklyCheckAndSend() {
   if (isTodayInDateList_() && isOkayToSend_()) {
-    sendToChat_();
+    sendToChat();
   }
 }
 
@@ -34,8 +34,9 @@ function isTodayInDateList_() {
   const [startRow, startCol] = [CONFIG.dateListRowStart, CONFIG.dateListColStart];
   const lastRow = sheet.getLastRow(); // Get the last row with content
   const dateListRaw = sheet.getRange(startRow, startCol, lastRow).getValues().flat();
-  const dateList = dateListRaw.map(date => Utilities.formatDate(date, 'Asia/Tokyo', 'yyyy/MM/dd'));
-  console.log(`date list: ${dateList}`);
+  console.log(dateListRaw);
+  const dateList = dateListRaw.map(date => Utilities.formatDate(new Date(date), 'Asia/Tokyo', 'yyyy/MM/dd'));
+  console.log(dateList)
 
   // Get today's date
   const today = new Date();
@@ -44,6 +45,7 @@ function isTodayInDateList_() {
 
   // Check if today is on the list, true or false
   const isInList = dateList.includes(formattedToday);
+  console.log("Is today's date in datelist?", isInList);
   
   return isInList;
 }
@@ -67,7 +69,7 @@ function getMessageFromSheet_() {
 /**
  * Sends a message with a link to the generated PDF to a Google Chat room using a webhook.
  */
-function sendToChat_() {
+function sendToChat() {
   const webhookUrl = CONFIG.webhookUrl; // Chat bot URL
   const message = getMessageFromSheet_();
 
