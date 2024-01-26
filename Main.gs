@@ -9,8 +9,7 @@ function onOpen() {
     .addToUi();
 }
 
-/**
- * Triggered weekly (Monday and Tuesday in case of Monday holiday). 
+/** 
  * If today's date is in the list and okay checkbox is checked,
  * sends the message to chat.
  */
@@ -20,21 +19,24 @@ function weeklyCheckAndSend() {
   }
 }
 
-function getListOfDates_() {
-  // Connect to sheet
-  const sheetName = CONFIG.mainSheet;
-  const ss = SpreadsheetApp.getActiveSpreadsheet();
-  const sheet = ss.getSheetByName(sheetName);
-  
-  // Get list of dates
-  const [startRow, startCol] = [CONFIG.dateListRowStart, CONFIG.dateListColStart];
-  const lastRow = sheet.getLastRow(); // Get the last row with content
-  const dateListRaw = sheet.getRange(startRow, startCol, lastRow).getValues().flat();
-  console.log(dateListRaw);
-  const dateList = dateListRaw.map(date => Utilities.formatDate(new Date(date), 'Asia/Tokyo', 'yyyy/MM/dd'));
-  console.log(dateList)
+/**
+ * Checks if the "okay to send" status in a specific cell is set to true.
+ * This is used as a "kill switch" to control whether the sending process should proceed.
+ * @return {boolean} - Returns true if the cell value is boolean true, indicating it's okay to send.
+ */
+function isOkayToSend_() {
+  const sheet = connectToMainSheet_();
+  const checkbox = CONFIG.checkboxCell;
+  const checkboxRange = sheet.getRange(checkbox); 
+  const okayToSend = checkboxRange.getValue();
+  console.log(okayToSend, typeof(okayToSend))
 
-  return dateList
+  // Uncheck after sending
+  if(okayToSend === true){
+    checkboxRange.uncheck()
+  }
+
+  return okayToSend
 }
 
 /**
@@ -54,6 +56,20 @@ function isTodayInDateList_() {
   console.log("Is today's date in datelist?", isInList);
   
   return isInList;
+}
+
+function getListOfDates_() {
+  const sheet = connectToMainSheet_();
+  
+  // Get list of dates
+  const [startRow, startCol] = [CONFIG.dateListRowStart, CONFIG.dateListColStart];
+  const lastRow = sheet.getLastRow(); // Get the last row with content
+  const dateListRaw = sheet.getRange(startRow, startCol, lastRow).getValues().flat();
+  console.log(dateListRaw);
+  const dateList = dateListRaw.map(date => Utilities.formatDate(new Date(date), 'Asia/Tokyo', 'yyyy/MM/dd'));
+  console.log(dateList)
+
+  return dateList
 }
 
 /**

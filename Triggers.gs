@@ -1,8 +1,10 @@
+// Note: Set manual trigger for triggerSpecificTime in Apps Script dashboard
+
 /**
  * Checks if the current day is one of the designated days to send.
  * @returns {boolean} True if the current day is a day to send, otherwise false.
  */
-function checkDayToSend_() {
+function isDayToSend_() {
   const daysToSend = CONFIG_TRIGGERS.daysToSend;
   const dayOfWeek = new Date().getDay();
 
@@ -15,9 +17,9 @@ function checkDayToSend_() {
  */
 function triggerSpecificTime() {
   const triggerHour = CONFIG_TRIGGERS.firstTriggerHour;
-  const dayToSend = checkDayToSend_();
+  const checkDayToSend = isDayToSend_();
 
-  if (dayToSend) {
+  if (checkDayToSend) {
     const date = new Date(); 
     deleteExistingTriggers_('setSpecificTime_');
     date.setHours(triggerHour, 0, 0, 0);
@@ -36,7 +38,7 @@ function triggerSpecificTime() {
  * @returns {number|null} The hour to trigger the event or null if it's not a day to send.
  */
 function getTriggerHour_() {
-  if (!checkDayToSend_()) {
+  if (!isDayToSend_()) {
     return null;
   }
   
