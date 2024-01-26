@@ -91,6 +91,6 @@ function sendToChat() {
     contentType: "application/json; charset=utf-8",
     payload: JSON.stringify(payload)
   };
-  
+  console.log("Send to chat!")
   UrlFetchApp.fetch(webhookUrl, params);
 }

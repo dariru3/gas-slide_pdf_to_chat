@@ -34,8 +34,9 @@ function checkDayOfWeek() {
   const triggerHour = 11;
   const triggerMinute = 0;
   const date = new Date(); 
-  console.log(date)
+  console.log(date);
   const dayOfWeek = date.getDay();
+  console.log(dayOfWeek);
   
   if (dayOfWeek == monday || dayOfWeek == tuesday) { 
     deleteExistingTriggers_('setSpecificTime_');
