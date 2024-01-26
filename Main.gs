@@ -20,11 +20,7 @@ function weeklyCheckAndSend() {
   }
 }
 
-/**
- * Checks if the current date exists in the specified list of dates.
- * @return {boolean} - Returns true if today's date is in the list, otherwise false.
- */
-function isTodayInDateList_() {
+function getListOfDates_() {
   // Connect to sheet
   const sheetName = CONFIG.mainSheet;
   const ss = SpreadsheetApp.getActiveSpreadsheet();
@@ -37,6 +33,16 @@ function isTodayInDateList_() {
   console.log(dateListRaw);
   const dateList = dateListRaw.map(date => Utilities.formatDate(new Date(date), 'Asia/Tokyo', 'yyyy/MM/dd'));
   console.log(dateList)
+
+  return dateList
+}
+
+/**
+ * Checks if the current date exists in the specified list of dates.
+ * @return {boolean} - Returns true if today's date is in the list, otherwise false.
+ */
+function isTodayInDateList_() {
+  const dateList = getListOfDates_()
 
   // Get today's date
   const today = new Date();
@@ -66,18 +72,23 @@ function getMessageFromSheet_() {
   return message;
 }
 
+function getPdfUrl_() {
+  const pdfFile = saveSlideToPDF_();
+  const pdfFileId = pdfFile.getId();
+  DriveApp.getFileById(pdfFileId).setSharing(DriveApp.Access.DOMAIN_WITH_LINK, DriveApp.Permission.VIEW);
+  pdfUrl = pdfFile.getUrl();
+
+  return getPdfUrl;
+
+}
+
 /**
  * Sends a message with a link to the generated PDF to a Google Chat room using a webhook.
  */
 function sendToChat() {
   const webhookUrl = CONFIG.webhookUrl; // Chat bot URL
   const message = getMessageFromSheet_();
-
-  // Create the PDF and get its Google Drive URL
-  const pdfFile = saveSlideToPDF_();
-  const pdfFileId = pdfFile.getId();
-  DriveApp.getFileById(pdfFileId).setSharing(DriveApp.Access.DOMAIN_WITH_LINK, DriveApp.Permission.VIEW);
-  const pdfUrl = pdfFile.getUrl();
+  const pdfUrl = getPdfUrl_();
 
   const fullMessage = message + "\n\n" + pdfUrl; // Combine message with PDF URL
 
