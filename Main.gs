@@ -5,7 +5,7 @@
 function onOpen() {
   const ui = SpreadsheetApp.getUi();
   ui.createMenu('Manual Send')
-    .addItem('Send Message+PDF', 'sendToChat')
+    .addItem('Send Message+PDF', 'weeklyCheckAndSend')
     .addToUi();
 }
 
@@ -92,9 +92,9 @@ function getPdfUrl_() {
   const pdfFile = saveSlideToPDF_();
   const pdfFileId = pdfFile.getId();
   DriveApp.getFileById(pdfFileId).setSharing(DriveApp.Access.DOMAIN_WITH_LINK, DriveApp.Permission.VIEW);
-  pdfUrl = pdfFile.getUrl();
+  const pdfUrl = pdfFile.getUrl();
 
-  return getPdfUrl;
+  return pdfUrl
 
 }
 
